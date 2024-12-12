@@ -102,13 +102,13 @@ dns:
       - "https://dns.google/dns-query"
  
 # 锚点
-pr: &pr {type: select, proxies: [♻️ 自动选择, 🛩️ 高速节点, 🕊️ 低倍率节点, 🎮 下载节点, 🚀 节点选择, 🔯 香港故转, 🔯 日本故转, ♻️ 香港自动, ♻️ 日本自动, ♻️ 美国自动,  🇭🇰 香港节点, 🇯🇵 日本节点, 🇺🇲 美国节点, 🌐 全部节点]}
+pr: &pr {type: select, proxies: [♻️ 自动选择, 🛩️ 高倍率节点, 🕊️ 低倍率节点, 🎮 下载节点, 🚀 节点选择, 🔯 香港故转, 🔯 日本故转, ♻️ 香港自动, ♻️ 日本自动, ♻️ 美国自动,  🇭🇰 香港节点, 🇯🇵 日本节点, 🇺🇲 美国节点, 🌐 全部节点]}
 # 策略组    .* 全部展示      （|）筛选关键字      (?=.*（|）^?!(|).)*$筛选但不包含
 proxy-groups:
-  - {name: 🚀 节点选择, type: select, proxies: [ ♻️ 自动选择, 🛩️ 高速节点, 🕊️ 低倍率节点, 🎮 下载节点, 🔯 香港故转, 🔯 日本故转, ♻️ 香港自动, ♻️ 日本自动, ♻️ 美国自动, 🇭🇰 香港节点, 🇯🇵 日本节点, 🇺🇲 美国节点, 🌐 全部节点]}
+  - {name: 🚀 节点选择, type: select, proxies: [ ♻️ 自动选择, 🛩️ 高倍率节点, 🕊️ 低倍率节点, 🎮 下载节点, 🔯 香港故转, 🔯 日本故转, ♻️ 香港自动, ♻️ 日本自动, ♻️ 美国自动, 🇭🇰 香港节点, 🇯🇵 日本节点, 🇺🇲 美国节点, 🌐 全部节点]}
   - {name: ♻️ 自动选择, type: url-test, include-all: true, tolerance: 20, interval: 300, filter: "^((?!(直连|到期|剩余)).)*$"}
-  - {name: 🕊️ 低倍率节点, type: url-test, include-all: true, tolerance: 20, interval: 300, filter: "(0.01|0.1|0.1X|0.5|0.5X)"}
-  - {name: 🛩️ 高速节点, type: url-test, include-all: true, tolerance: 20, interval: 300, filter: "(?=.*(2X|3X|4X|5X|6X|7X|8X|高速|专线))^((?!(0.01|0.1|0.1X|0.5|0.5X)).)*$"}
+  - {name: 🕊️ 低倍率节点, type: url-test, include-all: true, tolerance: 20, interval: 300, filter: "(?=.*(0.01|0.1|0.1X|0.5|0.5X))^((?!(直连|到期|剩余)).)*$"}
+  - {name: 🛩️ 高倍率节点, type: url-test, include-all: true, tolerance: 20, interval: 300, filter: "(?=.*(2X|3X|4X|5X|6X|7X|8X|高速|专线))^((?!(0.01|0.1|0.1X|0.5|0.5X)).)*$"}
   - {name: 🎮 下载节点, type: url-test, include-all: true, tolerance: 20, interval: 300, filter: "(下载)"}
   - {name: 🌐 全部节点, type: select, include-all: true}
   - {name: 📹 YouTube,!!merge <<: *pr}
@@ -125,18 +125,19 @@ proxy-groups:
   - {name: 🍎 Apple, type: select, proxies: [DIRECT, 🚀 节点选择]}
   - {name: 🎯 全球直连, type: select, proxies: [DIRECT, 🚀 节点选择]}
   - {name: 🐟 漏网之鱼,!!merge <<: *pr}
+  - {name: ♻️ 香港自动, type: url-test, include-all: true, tolerance: 20, interval: 300, filter: "(?=.*(港|HK|(?i)Hong))^((?!(台|日|韩|新|深|美)).)*$"}
+  - {name: ♻️ 日本自动, type: url-test, include-all: true, tolerance: 20, interval: 300, filter: "(?=.*(日|JP|(?i)Japan))^((?!(港|台|韩|新|美)).)*$" }
+  - {name: ♻️ 美国自动, type: url-test, include-all: true, tolerance: 20, interval: 300, filter: "(?=.*(美|US|(?i)States|America))^((?!(港|台|日|韩|新)).)*$"}
   - {name: 🇭🇰 香港节点, type: select, include-all: true, filter: "(?i)港|hk|hongkong|hong kong"}
   - {name: 🇯🇵 日本节点, type: select, include-all: true, filter: "(?i)日|jp|japan"}
   - {name: 🇺🇲 美国节点, type: select, include-all: true, filter: "(?i)美|us|unitedstates|united states"}
   - {name: 🔯 香港故转, type: fallback, include-all: true, tolerance: 20, interval: 300, filter: "(?=.*(港|HK|(?i)Hong))^((?!(台|日|韩|新|深|美)).)*$"}
   - {name: 🔯 日本故转, type: fallback, include-all: true, tolerance: 20, interval: 300, filter: "(?=.*(日|JP|(?i)Japan))^((?!(港|台|韩|新|美)).)*$" }
-  - {name: ♻️ 香港自动, type: url-test, include-all: true, tolerance: 20, interval: 300, filter: "(?=.*(港|HK|(?i)Hong))^((?!(台|日|韩|新|深|美)).)*$"}
-  - {name: ♻️ 日本自动, type: url-test, include-all: true, tolerance: 20, interval: 300, filter: "(?=.*(日|JP|(?i)Japan))^((?!(港|台|韩|新|美)).)*$" }
-  - {name: ♻️ 美国自动, type: url-test, include-all: true, tolerance: 20, interval: 300, filter: "(?=.*(美|US|(?i)States|America))^((?!(港|台|日|韩|新)).)*$"}
+
 
 rules:
   - DOMAIN-SUFFIX,googleapis,DIRECT
-  - DOMAIN-SUFFIX,test.ustc.edu.cn,DIRECT
+  - DOMAIN-SUFFIX,test.ustc.edu.cn,DIRECT    #中国科学技术大学测速网站
   - RULE-SET,private_domain,DIRECT
   - RULE-SET,apple_domain,🍎 Apple
   - RULE-SET,proxylite,🚀 节点选择
