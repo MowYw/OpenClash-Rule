@@ -136,7 +136,7 @@ proxy-groups:
 
 rules:
   - DOMAIN-SUFFIX,googleapis,DIRECT
-  - DOMAIN-SUFFIX,test.ustc.edu.cn,DIRECT    #中国科学技术大学测速网站
+  - DOMAIN-SUFFIX,test.ustc.edu.cn,DIRECT
   - RULE-SET,private_domain,DIRECT
   - RULE-SET,apple_domain,🍎 Apple
   - RULE-SET,proxylite,🚀 节点选择
