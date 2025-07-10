@@ -5,9 +5,9 @@ redir-port: 7892
 mixed-port: 7893
 tproxy-port: 7894
 ipv6: false
-allow-lan: true
-unified-delay: true
-tcp-concurrent: true
+allow-lan: true         #区域网
+unified-delay: true     #统一延迟
+tcp-concurrent: true       #TCP并发连接
   
 geodata-mode: false
 geodata-loader: standard
@@ -102,28 +102,28 @@ dns:
       - "https://dns.google/dns-query"
  
 # 锚点
-pr: &pr {type: select, proxies: [♻️ 自动选择, 🛩️ 高倍率节点, 🕊️ 低倍率节点, 🎮 下载节点, 🚀 节点选择, 🔯 香港故转, 🔯 日本故转, ♻️ 香港自动, ♻️ 日本自动, ♻️ 美国自动,  🇭🇰 香港节点, 🇯🇵 日本节点, 🇺🇲 美国节点, 🌐 全部节点]}
+pr: &pr {type: select, proxies: [♻️ 自动选择, 🛩️ 高倍率自动节点, 🕊️ 低倍率自动节点, 🎮 下载自动节点, 🔰 节点选择, 🔯 香港故转, 🔯 日本故转, ♻️ 香港自动, ♻️ 日本自动, ♻️ 美国自动,  🇭🇰 香港节点, 🇯🇵 日本节点, 🇺🇲 美国节点, 🌐 全部节点, DIRECT]}
 # 策略组    .* 全部展示      （|）筛选关键字      (?=.*（|）^?!(|).)*$筛选但不包含
 proxy-groups:
-  - {name: 🚀 节点选择, type: select, proxies: [ ♻️ 自动选择, 🛩️ 高倍率节点, 🕊️ 低倍率节点, 🎮 下载节点, 🔯 香港故转, 🔯 日本故转, ♻️ 香港自动, ♻️ 日本自动, ♻️ 美国自动, 🇭🇰 香港节点, 🇯🇵 日本节点, 🇺🇲 美国节点, 🌐 全部节点]}
+  - {name: 🔰 节点选择, type: select, proxies: [ ♻️ 自动选择, 🛩️ 高倍率自动节点, 🕊️ 低倍率自动节点, 🎮 下载自动节点, 🔯 香港故转, 🔯 日本故转, ♻️ 香港自动, ♻️ 日本自动, ♻️ 美国自动, 🇭🇰 香港节点, 🇯🇵 日本节点, 🇺🇲 美国节点, 🌐 全部节点]}
   - {name: ♻️ 自动选择, type: url-test, include-all: true, tolerance: 20, interval: 300, filter: "^((?!(直连|到期|剩余)).)*$"}
-  - {name: 🕊️ 低倍率节点, type: url-test, include-all: true, tolerance: 20, interval: 300, filter: "(?=.*(0.01|0.1|0.1X|0.5|0.5X))^((?!(直连|到期|剩余)).)*$"}
-  - {name: 🛩️ 高倍率节点, type: url-test, include-all: true, tolerance: 20, interval: 300, filter: "(?=.*(2X|3X|4X|5X|6X|7X|8X|高速|专线))^((?!(0.01|0.1|0.1X|0.5|0.5X)).)*$"}
-  - {name: 🎮 下载节点, type: url-test, include-all: true, tolerance: 20, interval: 300, filter: "(下载)"}
+  - {name: 🕊️ 低倍率自动节点, type: url-test, include-all: true, tolerance: 20, interval: 300, filter: "(?=.*(0.01|0.1|0.1X|0.5|0.5X))^((?!(直连|到期|剩余)).)*$"}
+  - {name: 🛩️ 高倍率自动节点, type: url-test, include-all: true, tolerance: 20, interval: 300, filter: "(?=.*(2X|3X|4X|5X|6X|7X|8X|高速|专线))^((?!(0.01|0.1|0.1X|0.5|0.5X)).)*$"}
+  - {name: 🎮 下载自动节点, type: url-test, include-all: true, tolerance: 20, interval: 300, filter: "(下载)"}
   - {name: 🌐 全部节点, type: select, include-all: true}
   - {name: 📹 YouTube,!!merge <<: *pr}
   - {name: 🍀 Google,!!merge <<: *pr}
   - {name: 🤖 ChatGPT,!!merge <<: *pr}
   - {name: 👨🏿‍💻 GitHub,!!merge <<: *pr}
   - {name: 🐬 OneDrive,!!merge <<: *pr}
-  - {name: 🪟 Microsoft,!!merge <<: *pr}
+  - {name: Ⓜ️ Microsoft,!!merge <<: *pr}
   - {name: 🎵 TikTok,!!merge <<: *pr}
   - {name: 📲 Telegram,!!merge <<: *pr}
   - {name: 🎥 NETFLIX,!!merge <<: *pr}
   - {name: ✈️ Speedtest,!!merge <<: *pr}
   - {name: 💶 PayPal,!!merge <<: *pr}
-  - {name: 🍎 Apple, type: select, proxies: [DIRECT, 🚀 节点选择]}
-  - {name: 🎯 全球直连, type: select, proxies: [DIRECT, 🚀 节点选择]}
+  - {name: 🍎 Apple, type: select, proxies: [DIRECT, 🔰 节点选择]}
+  - {name: 🎯 全球直连, type: select, proxies: [DIRECT, 🔰 节点选择]}
   - {name: 🐟 漏网之鱼,!!merge <<: *pr}
   - {name: ♻️ 香港自动, type: url-test, include-all: true, tolerance: 20, interval: 300, filter: "(?=.*(港|HK|(?i)Hong))^((?!(台|日|韩|新|深|美)).)*$"}
   - {name: ♻️ 日本自动, type: url-test, include-all: true, tolerance: 20, interval: 300, filter: "(?=.*(日|JP|(?i)Japan))^((?!(港|台|韩|新|美)).)*$" }
@@ -140,19 +140,19 @@ rules:
   - DOMAIN-SUFFIX,test.ustc.edu.cn,DIRECT    #中国科学技术大学测速网站
   - RULE-SET,private_domain,DIRECT
   - RULE-SET,apple_domain,🍎 Apple
-  - RULE-SET,proxylite,🚀 节点选择
+  - RULE-SET,proxylite,🔰 节点选择
   - RULE-SET,ai,🤖 ChatGPT
   - RULE-SET,github_domain,👨🏿‍💻 GitHub
   - RULE-SET,youtube_domain,📹 YouTube
   - RULE-SET,google_domain,🍀 Google
   - RULE-SET,onedrive_domain,🐬 OneDrive
-  - RULE-SET,microsoft_domain,🪟 Microsoft
+  - RULE-SET,microsoft_domain,Ⓜ️ Microsoft
   - RULE-SET,tiktok_domain,🎵 TikTok
   - RULE-SET,speedtest_domain,✈️ Speedtest
   - RULE-SET,telegram_domain,📲 Telegram
   - RULE-SET,netflix_domain,🎥 NETFLIX
   - RULE-SET,paypal_domain,💶 PayPal
-  - RULE-SET,geolocation-!cn,🚀 节点选择
+  - RULE-SET,geolocation-!cn,🔰 节点选择
   - RULE-SET,cn_domain,🎯 全球直连
   - RULE-SET,google_ip,🍀 Google,no-resolve
   - RULE-SET,netflix_ip,🎥 NETFLIX,no-resolve
